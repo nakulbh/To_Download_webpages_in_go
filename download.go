@@ -31,7 +31,7 @@ func main() {
 
 }
 
-func downloadAndSave(ctx context.Context, c *http.Client, url, filename string, dir *string) error {
+func downloadAndSave(ctx context.Context, c *http.Client, url, filename string, dst *string) error {
 	req, err := http.NewRequestWithContext(ctx, "GET", url, nil)
 	if err != nil {
 		return fmt.Errorf("creating request: GET %q: %v", url, err)
@@ -48,7 +48,7 @@ func downloadAndSave(ctx context.Context, c *http.Client, url, filename string, 
 		return fmt.Errorf("response status: %s", resp.Status)
 	}
 
-	dstPath := filepath.Join(*dir, filename)
+	dstPath := filepath.Join(*dst, filename)
 	dstFile, err := os.Create(dstPath)
 	if err != nil {
 		return fmt.Errorf("creating file: %v", err)
